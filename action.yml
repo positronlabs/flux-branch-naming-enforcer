@@ -1,0 +1,36 @@
+name: Branch Naming Enforcer
+description: Validate that branch names match your team's naming conventions before merging.
+branding:
+  icon: git-branch
+  color: blue
+
+inputs:
+  flux-token:
+    description: API key for your Flux instance
+    required: true
+  flux-url:
+    description: URL of your Flux instance (e.g. https://flux.example.com)
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Download Flux Scanner
+      shell: bash
+      run: |
+        VERSION="${GITHUB_ACTION_REF:-v1}"
+        URL="https://github.com/${GITHUB_ACTION_REPOSITORY}/releases/download/${VERSION}/flux-scanner"
+        curl -fsSL -o "${GITHUB_ACTION_PATH}/flux-scanner" "${URL}"
+        chmod +x "${GITHUB_ACTION_PATH}/flux-scanner"
+
+    - name: Check Branch Naming
+      shell: bash
+      env:
+        FLUX_URL: ${{ inputs.flux-url }}
+        FLUX_TOKEN: ${{ inputs.flux-token }}
+        FLUX_TOOL: branch-naming-enforcer
+        GITHUB_REPOSITORY: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+        GITHUB_SHA: ${{ github.event.pull_request.head.sha }}
+        GITHUB_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+      run: ${{ github.action_path }}/flux-scanner
