@@ -23,7 +23,6 @@ runs:
     - name: Check Branch Naming
       shell: bash
       env:
-        FLUX_URL: http://localhost:5000
         FLUX_TOKEN: ${{ inputs.flux-token }}
         FLUX_TOOL: branch-naming-enforcer
         GITHUB_REPOSITORY: ${{ github.repository }}
