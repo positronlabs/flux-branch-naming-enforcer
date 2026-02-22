@@ -8,10 +8,6 @@ inputs:
   flux-token:
     description: API key from your Flux account (Org Admin > Tools > API Keys)
     required: true
-  flux-url:
-    description: Flux instance URL
-    required: false
-    default: http://localhost:5000
 
 runs:
   using: composite
@@ -27,7 +23,7 @@ runs:
     - name: Check Branch Naming
       shell: bash
       env:
-        FLUX_URL: ${{ inputs.flux-url }}
+        FLUX_URL: http://localhost:5000
         FLUX_TOKEN: ${{ inputs.flux-token }}
         FLUX_TOOL: branch-naming-enforcer
         GITHUB_REPOSITORY: ${{ github.repository }}
