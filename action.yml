@@ -6,11 +6,12 @@ branding:
 
 inputs:
   flux-token:
-    description: API key for your Flux instance
+    description: API key from your Flux account (Org Admin > Tools > API Keys)
     required: true
   flux-url:
-    description: URL of your Flux instance (e.g. https://flux.example.com)
-    required: true
+    description: Flux instance URL
+    required: false
+    default: http://localhost:5000
 
 runs:
   using: composite

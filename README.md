@@ -29,7 +29,6 @@ jobs:
       - uses: positronlabs/flux-branch-naming-enforcer@v1
         with:
           flux-token: ${{ secrets.FLUX_TOKEN }}
-          flux-url: ${{ vars.FLUX_URL }}
 ```
 
 No checkout step needed — this action only reads the branch name from the pull request event.
@@ -40,7 +39,7 @@ No checkout step needed — this action only reads the branch name from the pull
 2. Go to **Org Admin > Tools** and create an API key
 3. Go to **Product > Tools** and configure Branch Naming Enforcer with trigger app "CLI"
 4. Set the naming pattern (e.g. `^(feat|fix|chore)/`) and feedback mode
-5. Add `FLUX_TOKEN` as a repository secret and `FLUX_URL` as a repository variable
+5. Add `FLUX_TOKEN` as a repository secret
 6. Add the workflow above to your repository
 
 ## Inputs
@@ -48,7 +47,6 @@ No checkout step needed — this action only reads the branch name from the pull
 | Input | Required | Description |
 |-------|----------|-------------|
 | `flux-token` | Yes | API key from Flux (Org Admin > Tools > API Keys) |
-| `flux-url` | Yes | URL of your Flux instance |
 
 ## Behaviour
 
